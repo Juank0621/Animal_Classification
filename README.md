@@ -7,10 +7,8 @@
 
 ---
 
-<h3 align="center">Demo IMAGE</h3>
-
 <div align="center">
-  <img src="image_demo.png" alt="Demo Image" style="width:80%;"/>
+  <img src="background.jpg" alt="Image" style="width:80%;"/>
 </div>
 
 ---
