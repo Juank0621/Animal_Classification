@@ -8,7 +8,7 @@
 ---
 
 <div align="center">
-  <img src="datasets/background.jpg" alt="Image" style="width:80%;"/>
+  <img src="datasets/animals_intro.jpg" alt="Image" style="width:80%;"/>
 </div>
 
 ---
