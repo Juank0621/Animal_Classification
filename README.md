@@ -38,7 +38,7 @@ The dataset used for this project contains images of 10 different animal categor
 
 ## Project Goal
 
-The main goal of this project is to create an animal classification system using a dataset containing images of 10 different animal categories. The project involves training two architectures from scratch: a custom model and an EfficientNetB4 model. Additionally, two models are trained using transfer learning: SwinTransformer and ConvNeXt. The trained models can be found in the `models` folder.
+The main goal of this project is to create an animal classification system using a dataset containing images of 10 different animal categories. The project involves training two architectures from scratch: a custom model and an EfficientNetB4 model. Additionally, two models are trained using transfer learning: SwinTransformer and ConvNeXt.
 
 Once the training and fine-tuning were completed, a user-friendly **Streamlit** web interface was built, allowing users to upload images for immediate processing and classification results.
 
@@ -48,7 +48,7 @@ This project combines the latest techniques in deep learning and web interface d
 
 ### Key Components:
 - **Dataset**: Animal Classification with 10 Categories
-- **Models**: Custom Model, EfficientNetB4, SwinTransformer, ConvNeXt (Trained models are in the `models` folder)
+- **Models**: Custom Model, EfficientNetB4, SwinTransformer, ConvNeXt
 - **Web Interface**: Streamlit for intuitive image and video upload and processing
 
 ---
