@@ -49,7 +49,7 @@ This project combines the latest techniques in deep learning and web interface d
 ### Key Components:
 - **Dataset**: Animal Classification with 10 Categories
 - **Models**: Custom Model, EfficientNetB4, SwinTransformer, ConvNeXt
-- **Web Interface**: Streamlit for intuitive image and video upload and processing
+- **Web Interface**: Streamlit for intuitive image upload and processing
 
 ---
 
