@@ -1,0 +1,12 @@
+scikit-learn
+tqdm
+jupyterlab
+tensorboard
+pillow
+seaborn
+matplotlib
+torch
+torchvision
+streamlit
+
+
