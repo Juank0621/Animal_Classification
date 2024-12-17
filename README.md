@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="logo.png" alt="Logo" style="width:80%;"/>
+  <img src="datasets/logo.png" alt="Logo" style="width:80%;"/>
 </div>
 
 <h1 align="center">🐶  Animal Classification with 10 Categories 🐱</h1>
@@ -122,16 +122,6 @@ Before running the application, ensure you have the following installed:
    
    This will open a browser window with the interface, where you can upload images for classification.
 
----
-
-## Screenshots
-
-Below are screenshots of the project's user interface, showcasing the **Streamlit** web application:
-
-### Streamlit Interface
-The Streamlit application provides a user-friendly interface for uploading images for object detection.
-
-![Streamlit Interface](streamlit.png)
 
 
 
