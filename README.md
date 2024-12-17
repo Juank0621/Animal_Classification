@@ -69,8 +69,9 @@ This project combines the latest techniques in deep learning and web interface d
 
 ## Code Overview:
 
-The **final_project.ipynb** file contains the code for training the models from scratch.
-The **transfer_learning.ipynb** file includes the code for training the models using transfer learning.
+- The **final_project.ipynb** file contains the code for training the models from scratch.
+
+- The **transfer_learning.ipynb** file includes the code for training the models using transfer learning.
 
 ---
 
