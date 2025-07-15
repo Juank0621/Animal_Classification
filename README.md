@@ -1,5 +1,5 @@
- <div align="center">
-  <img src="logo.png" alt="Logo" style="width:80%;"/>
+<div align="center">
+  <img src="datasets/logo.png" alt="Logo" style="width:80%;"/>
 </div>
 
 <h1 align="center">🐶  Animal Classification with 10 Categories 🐱</h1>
@@ -8,14 +8,14 @@
 ---
 
 <div align="center">
-  <img src="background.jpg" alt="Image" style="width:80%;"/>
+  <img src="datasets/animals_intro.jpg" alt="Image" style="width:80%;"/>
 </div>
 
 ---
 
 <h3 align="center">Demo VIDEO</h3>
 
-
+https://github.com/user-attachments/assets/f6d49535-760a-4879-89f5-bbef99d26925
 
 ---
 
@@ -38,7 +38,7 @@ The dataset used for this project contains images of 10 different animal categor
 
 ## Project Goal
 
-The main goal of this project is to create an animal classification system using a dataset containing images of 10 different animal categories. The project involves training two architectures from scratch: a custom model and an EfficientNetB4 model. Additionally, two models are trained using transfer learning: SwinTransformer and ConvNeXt. The trained models can be found in the `models` folder.
+The main goal of this project is to create an animal classification system using a dataset containing images of 10 different animal categories. The project involves training two architectures from scratch: a custom model and an EfficientNetB4 model. Additionally, two models are trained using transfer learning: SwinTransformer and ConvNeXt.
 
 Once the training and fine-tuning were completed, a user-friendly **Streamlit** web interface was built, allowing users to upload images for immediate processing and classification results.
 
@@ -48,8 +48,8 @@ This project combines the latest techniques in deep learning and web interface d
 
 ### Key Components:
 - **Dataset**: Animal Classification with 10 Categories
-- **Models**: Custom Model, EfficientNetB4, SwinTransformer, ConvNeXt (Trained models are in the `models` folder)
-- **Web Interface**: Streamlit for intuitive image and video upload and processing
+- **Models**: Custom Model, EfficientNetB4, SwinTransformer, ConvNeXt
+- **Web Interface**: Streamlit for intuitive image upload and processing
 
 ---
 
@@ -64,6 +64,14 @@ This project combines the latest techniques in deep learning and web interface d
 - Sheep
 - Spiders
 - Squirrels
+
+---
+
+## Code Overview:
+
+- The **final_project.ipynb** file contains the code for training the models from scratch.
+
+- The **transfer_learning.ipynb** file includes the code for training the models using transfer learning.
 
 ---
 
@@ -122,16 +130,6 @@ Before running the application, ensure you have the following installed:
    
    This will open a browser window with the interface, where you can upload images for classification.
 
----
-
-## Screenshots
-
-Below are screenshots of the project's user interface, showcasing the **Streamlit** web application:
-
-### Streamlit Interface
-The Streamlit application provides a user-friendly interface for uploading images for object detection.
-
-![Streamlit Interface](streamlit.png)
 
 
 
