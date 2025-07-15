@@ -7,3 +7,8 @@ __pycache__
 models/
 
 datasets/images
+
+logs/
+
+# Video files
+demo_app.mp4

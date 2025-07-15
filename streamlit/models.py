@@ -5,7 +5,7 @@ from torchvision import models
 from torchvision.models import Swin_T_Weights, ConvNeXt_Base_Weights
 
 class CustomModel(nn.Module):
-    def __init__(self):
+    def __init__(self, num_classes=10):
         super(CustomModel, self).__init__()
 
         # Block 1: Convolution, Batch Normalization, Max Pooling
@@ -47,7 +47,7 @@ class CustomModel(nn.Module):
         self.fc2 = nn.Linear(512, 256)
         self.bn_fc2 = nn.BatchNorm1d(256)
         self.dropout3 = nn.Dropout(0.5)
-        self.fc3 = nn.Linear(256, 10)
+        self.fc3 = nn.Linear(256, num_classes)
 
     def forward(self, x):
         # Block 1
@@ -93,37 +93,37 @@ class CustomModel(nn.Module):
 
         return x
 
-class EfficientNetB4(nn.Module):
-    def __init__(self):
-        super(EfficientNetB4, self).__init__()
+class EfficientNetB1(nn.Module):
+    def __init__(self, num_classes=10):
+        super(EfficientNetB1, self).__init__()
 
-        # Load the EfficientNet-B4 model pre-trained on ImageNet
-        self.base_model = models.efficientnet_b4(weights=None)  # Use weights=None
-        self.base_model = nn.Sequential(*list(self.base_model.children())[:-2])  # Remove the last two layers (avgpool and classifier)
+        # Load the EfficientNet-B1 model without pretrained weights
+        self.base_model = models.efficientnet_b1(weights=None)
+        self.feature_extractor = self.base_model.features
 
-        # Unfreeze EfficientNet-B4 layers to allow retraining
-        for param in self.base_model.parameters():
+        # Unfreeze all layers for training
+        for param in self.feature_extractor.parameters():
             param.requires_grad = True
 
-        # Classifier
+        # Define the custom classifier
         self.classifier = nn.Sequential(
             nn.Dropout(0.4),
-            nn.Linear(1792, 1024),  # EfficientNet-B4 has 1792 features in the last conv layer
+            nn.Linear(1280, 1024),  # EfficientNet-B1 has 1280 output channels
             nn.ReLU(),
             nn.Linear(1024, 512),
             nn.ReLU(),
-            nn.Linear(512, 10)
-        )
+            nn.Linear(512, num_classes))
 
     def forward(self, x):
-        x = self.base_model(x)
-        x = nn.functional.adaptive_avg_pool2d(x, (1, 1))  # Global Average Pooling
+        x = self.feature_extractor(x)
+        x = nn.functional.adaptive_avg_pool2d(x, (1, 1))
         x = torch.flatten(x, 1)
         x = self.classifier(x)
         return x
+    
 
 class SwinTransformerTransferLearning(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes=10):
         super(SwinTransformerTransferLearning, self).__init__()
 
         # Load the pre-trained Swin Transformer model on ImageNet
@@ -145,7 +145,7 @@ class SwinTransformerTransferLearning(nn.Module):
         return x
 
 class ConvNeXtTransferLearning(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes=10):
         super(ConvNeXtTransferLearning, self).__init__()
 
         # Load the ConvNeXt model pre-trained on ImageNet

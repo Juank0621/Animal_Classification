@@ -2,10 +2,11 @@ import streamlit as st
 import torch
 from torchvision import transforms
 from PIL import Image
-from models import SwinTransformerTransferLearning, ConvNeXtTransferLearning, CustomModel, EfficientNetB4  # Import the model classes
+from models import SwinTransformerTransferLearning, ConvNeXtTransferLearning, CustomModel, EfficientNetB1  # Import the model classes
+import os
 
 # Define the categories
-CATEGORIES = ['butterfly', 'cat', 'chicken', 'cow', 'dog', 'elephant', 'horse', 'sheep', 'spider', 'squirrel']
+CATEGORIES = ['Butterfly', 'Cat', 'Chicken', 'Cow', 'Dog', 'Elephant', 'Horse', 'Sheep', 'Spider', 'Squirrel']
 
 # Function to add a background image to the Streamlit app
 def add_background(image_path):
@@ -41,7 +42,7 @@ def load_model(model_name, model_path):
     # Map model names to their corresponding classes
     model_classes = {
         "CustomModel": CustomModel,
-        "EfficientNetB4": EfficientNetB4,
+        "EfficientNetB1": EfficientNetB1,
         "SwinTransformerTransferLearning": SwinTransformerTransferLearning,
         "ConvNeXtTransferLearning": ConvNeXtTransferLearning
     }
@@ -49,17 +50,24 @@ def load_model(model_name, model_path):
     # Select the appropriate model class based on the input model name
     model_class = model_classes[model_name]
 
-    # If the model requires 'num_classes' as an argument, pass the number of categories
-    if model_name in ["ConvNeXtTransferLearning", "SwinTransformerTransferLearning"]:
-        model = model_class(num_classes=len(CATEGORIES))  # Initialize the model with class count
-    else:
-        model = model_class()  # For models that don't require 'num_classes'
+    # Initialize the model
+    model = model_class()
+
+    # Verify if the model path exists
+    if not os.path.exists(model_path):
+        st.error(f"The model file {model_path} don't exist.")
+        return None
 
     # Load the model weights, disable gradients, and prepare the model for inference
-    with torch.no_grad():  # Disable gradient calculations to save memory during inference
-        model.load_state_dict(torch.load(model_path, map_location=device))  # Load pretrained weights
-        model.eval()  # Set the model to evaluation mode
-        model.to(device)  # Move the model to the appropriate device (GPU or CPU)
+    try:
+        with torch.no_grad():  # Disable gradient calculations to save memory during inference
+            model.load_state_dict(torch.load(model_path, map_location=device))  # Load pretrained weights
+            model.eval()  # Set the model to evaluation mode
+            model.to(device)  # Move the model to the appropriate device (GPU or CPU)
+            st.success(f"Model {model_name} loaded successfully.")
+    except Exception as e:
+        st.error(f"Error loading model: {e}")
+        return None
 
     return model  # Return the loaded and ready-to-use model
 
@@ -94,22 +102,35 @@ def main():
     # Add custom CSS for background
     add_background("background.jpg")
 
+    # Display the logo image
+    st.image("/home/juangarzon/AI_Projects/animal_10/datasets/logo.png", use_container_width=True)
+
     st.title("🐶 Animal Classifier App 🐱")
 
     # Sidebar for selecting the model
     st.sidebar.title("🐻 Select Model 🐷")
-    model_option = st.sidebar.radio("Choose a trained model:", ("CustomModel", "EfficientNetB4", "SwinTransformerTransferLearning", "ConvNeXtTransferLearning"))
+    model_option = st.sidebar.radio("Choose a trained model:", ("CustomModel", "EfficientNetB1", "SwinTransformerTransferLearning", "ConvNeXtTransferLearning"))
 
     # Map model options to file paths
     model_paths = {
     "CustomModel": "/home/juangarzon/AI_Projects/animal_10/models/CustomModel.pt",
-    "EfficientNetB4": "/home/juangarzon/AI_Projects/animal_10/models/EfficientNetB4.pt",
+    "EfficientNetB1": "/home/juangarzon/AI_Projects/animal_10/models/EfficientNetB1.pt",
     "SwinTransformerTransferLearning": "/home/juangarzon/AI_Projects/animal_10/models/SwinTransformer.pt",
     "ConvNeXtTransferLearning": "/home/juangarzon/AI_Projects/animal_10/models/ConvNeXt.pt"
     }
 
     # Display information about supported categories
-    st.info(f"🎓 **This model can classify the following animals:**\n\n{', '.join([category.capitalize() for category in CATEGORIES])}")
+    st.markdown(
+        f"""
+        <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+            🎓 This model can classify the following animals:<br>{', '.join([category.capitalize() for category in CATEGORIES])}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Add space between sections
+    st.markdown("<br>", unsafe_allow_html=True)
 
     # Load the selected model
     selected_model_path = model_paths[model_option]
@@ -127,7 +148,14 @@ def main():
         # Classify the image
         st.header("🎯 Prediction")
         predicted_category = classify_image(model, image)
-        st.success(f"The image is classified as: **{predicted_category}**")
+        st.markdown(
+            f"""
+            <div style="background-color: #d4edda; padding: 10px; border-radius: 5px;">
+                The image is classified as: {predicted_category}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 if __name__ == "__main__":
     main()
