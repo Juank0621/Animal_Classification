@@ -10,5 +10,8 @@ datasets/images
 
 logs/
 
+# Git attributes
+.gitattributes
+
 # Video files
 demo_app.mp4
